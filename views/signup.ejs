@@ -1,11 +1,24 @@
-<!-- views/index.ejs -->
-<!DOCTYPE html>
+<!-- views/login.ejs -->
+<!doctype html>
 <html>
-  <head>
-      <title>Gratitude Journal</title>
-  </head>
-
-  <body>
-    <p>sign up</p>
-  </body>
+<head>
+    <title>Sign Up</title>
+</head>
+<body>
+  <!-- LOGIN FORM -->
+  <form action="/signup" method="post">
+      <div class="form-group">
+          <label>EMAIL</label>
+          <input type="text" class="form-control" name="email">
+      </div>
+      <hr />
+      <div class="form-group">
+          <label>PASSWORD</label>
+          <input type="password" class="form-control" name="password">
+      </div>
+      <hr />
+      <button type="submit">Sign Up</button>
+    </form>
+</div>
+</body>
 </html>
