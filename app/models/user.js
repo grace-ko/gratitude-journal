@@ -1,17 +1,15 @@
-var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
-const { Schema } = mongoose;
+const mongoose = require('mongoose');
+const bcrypt   = require('bcrypt-nodejs');
 
-const userSchema = new Schema({
+const userSchema = mongoose.Schema({
   local: {
     email: String,
     password: String,
   }
 });
 
-
 userSchema.methods.generateHash = password => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 userSchema.methods.validPassword = password => {

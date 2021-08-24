@@ -13,7 +13,7 @@ module.exports = (app, passport) => {
   });
 
   app.post('/signup', passport.authenticate('local-signup', {
-      successRedirect : '/profile',
-      failureRedirect : '/siginup',
+    successRedirect : '/profile',
+    failureRedirect : '/signup',
   }));
 }

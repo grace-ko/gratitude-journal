@@ -1,24 +1,32 @@
 const express = require('express');
-const PORT = process.env.PORT || 8080;
 const app = express();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const flash = require('connect-flash');
+const configDB = require('./config/database');
+const PORT = process.env.PORT || 8080;
+
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const configDB = require('./config/database');
-require('./app/routes')(app, passport);
+const morgan = require('morgan');
+
+mongoose.connect(configDB.uri, {
+  useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true
+})
+
 require('./config/passport')(passport);
 
-require('./app/models/user');
-mongoose.connect(configDB.uri);
+app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser());
 
+app.set('view engine', 'ejs');
+app.use(session({ secret: `${configDB.secret}` }));
 app.use(passport.initialize());
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' }));
 app.use(passport.session());
+app.use(flash());
 
-app.listen(PORT, () => {
-  console.log(`listening on ${PORT}`);
-});
+require('./app/routes.js')(app, passport);
+
+app.listen(PORT);

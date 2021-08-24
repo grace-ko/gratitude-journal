@@ -12,31 +12,38 @@ module.exports = passport => {
     });
   });
 
-//signup
   passport.use('local-signup', new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password',
-    passReqToCallback: true
-  },
+    usernameField : 'email',
+    passwordField : 'password',
+    passReqToCallback : true },
     (req, email, password, done) => {
       process.nextTick(() => {
-        User.findOne({ 'local.email': email }, (err, user) => {
+        User.findOne({'local.email': email}, (err, existingUser) => {
           if (err)
             return done(err);
-          if (user) {
-            return done(null, false);
-          } else {
+          if (existingUser)
+            return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+          if(req.user) {
+            const user = req.user;
+            user.local.email = email;
+            user.local.password = user.generateHash(password);
+            user.save(err => {
+              if (err)
+                throw err;
+              return done(null, user);
+            });
+          }
+          else {
             const newUser = new User();
-            console.log(newUser);
-            newUser.local.email = 'kariskalon@gmail.com';
-            newUser.local.password = '12345'//newUser.generateHash(password);
+            newUser.local.email = email;
+            newUser.local.password = newUser.generateHash(password);
             newUser.save(err => {
               if (err)
                 throw err;
               return done(null, newUser);
             });
           }
-        });
       });
-    ))
-}
+    });
+  }));
+};
