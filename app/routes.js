@@ -8,8 +8,10 @@ module.exports = (app, passport) => {
   app.get('/login', (req, res) => {
     res.render('login.ejs');
   });
-  app.get('/profile', (req, res) => {
-    res.render('profile.ejs');
+  app.get('/profile', isLoggedIn, (req, res) => {
+    res.render('profile.ejs', {
+      user: req.user
+    });
   });
 
   app.post('/signup', passport.authenticate('local-signup', {
@@ -19,6 +21,12 @@ module.exports = (app, passport) => {
   app.post('/login', passport.authenticate('local-login', {
     successRedirect : '/profile',
     failureRedirect : '/login',
-    failureFlash : true 
+    failureFlash : true
   }));
+}
+
+const isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated())
+  	return next();
+  res.redirect('/');
 }
