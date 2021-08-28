@@ -7,11 +7,12 @@ module.exports = passport => {
   });
 
   passport.deserializeUser((id, done) => {
-    User.findById(id, function(err, user) {
+    User.findById(id, (err, user) => {
       done(err, user);
     });
   });
 
+//sign up
   passport.use('local-signup', new LocalStrategy({
     usernameField : 'email',
     passwordField : 'password',
@@ -46,6 +47,8 @@ module.exports = passport => {
       });
     });
   }));
+
+//login
   passport.use('local-login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
