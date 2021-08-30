@@ -4,7 +4,14 @@
       <title>Profile</title>
   </head>
   <body>
-    <p><%= user.id %></p>
+    <p>Welcome, <%= user%></p>
+    <form action="/profile" method="post" class="entryForm">
+      <div class="form-group">
+        <p class="grateful">I am grateful for</p>
+        <input type="text" class="entryField" name="entry" placeholder="e.g. not being stuck in traffic despite the storm"/>
+        <button type="submit" class="submit-entry">SUBMIT</button>
+      </div>
+    </form>
     <a href="/logout">logout</a>
   </body>
 </html>
