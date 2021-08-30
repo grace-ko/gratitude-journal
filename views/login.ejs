@@ -1,24 +1,25 @@
 <!-- views/login.ejs -->
 <!doctype html>
 <html>
-<head>
+  <head>
     <title>Log In</title>
-</head>
-<body>
-  <!-- LOGIN FORM -->
-  <form action="/login" method="post">
-      <div class="form-group">
-          <label>EMAIL</label>
-          <input type="text" class="form-control" name="email">
-      </div>
-      <hr />
-      <div class="form-group">
+  </head>
+  <body>
+    <form action="/login" method="post">
+      <div>
+        <% if (message) { %>
+          <div><%= message %></div>
+        <% } %>
+        <label>EMAIL</label>
+        <input type="text" class="form-control" name="email">
+        <hr />
+        <div>
           <label>PASSWORD</label>
           <input type="password" class="form-control" name="password">
+        </div>
+        <hr />
+        <button type="submit">Log In</button>
       </div>
-      <hr />
-      <button type="submit">Login</button>
     </form>
-</div>
-</body>
+  </body>
 </html>
