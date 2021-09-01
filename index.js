@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const morgan = require('morgan');
-
+app.use(express.static(__dirname + '/public'));
 mongoose.connect(configDB.uri, {
   useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true
 })
