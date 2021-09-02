@@ -24,7 +24,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.set('view engine', 'ejs');
-app.use(session({ secret: `${configDB.secret}` }));
+app.use(session({
+  secret: `${configDB.secret}`,
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
