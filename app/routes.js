@@ -1,6 +1,10 @@
 const Entry = require('./models/entry');
-const timestamp = require('time-stamp');
-const todaysDate = timestamp('YYYY-MM-DD');
+const year = new Date().getFullYear();
+const month = new Date().getMonth();
+const date = new Date().getDate();
+
+const todaysDate = `${year}-${month}-${date}`;
+console.log(todaysDate);
 //const test = require('../public/js/calendar');
 
 module.exports = (app, passport) => {

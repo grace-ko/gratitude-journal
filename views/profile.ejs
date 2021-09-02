@@ -4,18 +4,17 @@
       <title>Profile</title>
   </head>
   <body>
-    <p>Welcome, <%= user%></p>
+    <p>Welcome!</p>
+    <p>Log what you're grateful for today!</p>
     <form action="/profile" method="post" class="entryForm">
       <div class="form-group">
-        <p class="grateful">I am grateful for</p>
-        <input type="text" class="entryField" name="entry" placeholder="e.g. not being stuck in traffic despite the storm"/>
-        <button type="submit" class="submit-entry">SUBMIT</button>
+        <div>
+          <span>I am grateful for</span>
+          <input type="text" class="entryField" name="entry" placeholder="e.g. not being stuck in traffic despite the storm"/>
+          <button type="submit" class="submit-entry">SUBMIT</button>
+        </div>
       </div>
     </form>
     <a href="/logout">logout</a>
-  <script src="js/calendar.js"></script>
-  <script>
-
-  </script>
   </body>
 </html>
