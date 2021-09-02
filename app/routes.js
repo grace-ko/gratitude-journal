@@ -1,8 +1,7 @@
 const Entry = require('./models/entry');
 const timestamp = require('time-stamp');
 const todaysDate = timestamp('YYYY-MM-DD');
-const CalendarDates = require("calendar-dates");
-const calendarDates = new CalendarDates();
+//const test = require('../public/js/calendar');
 
 module.exports = (app, passport) => {
   app.get('/', (req, res) => {
@@ -17,7 +16,6 @@ module.exports = (app, passport) => {
   app.get('/profile', isLoggedIn, (req, res) => {
     res.render('profile.ejs', {
       user: req.user,
-      calendarDates: mainAsync()
     });
   });
 
@@ -48,16 +46,6 @@ module.exports = (app, passport) => {
   });
 }
 
-
-  const log = console.log;
-  const may2018 = new Date(2018, 4);
-
-  mainAsync = async () => {
-    const mayDates = await calendarDates.getDates(may2018);
-    const mayMatrix = await calendarDates.getMatrix(may2018);
-    log(`May, 2018 Dates`, mayDates);
-    log(`May, 2018 Matrix`, mayMatrix);
-  };
 
 
 const isLoggedIn = (req, res, next) => {
