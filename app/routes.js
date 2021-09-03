@@ -17,11 +17,13 @@ module.exports = (app, passport) => {
   app.get('/login', (req, res) => {
     res.render('login.ejs', { message: req.flash('loginMessage') });
   });
+  /*
   app.get('/profile', isLoggedIn, (req, res) => {
     res.render('profile.ejs', {
       user: req.user,
+      todaysDate: todaysDate
     });
-  });
+  });*/
 
   //auth
   app.post('/signup', passport.authenticate('local-signup', {
@@ -46,6 +48,18 @@ module.exports = (app, passport) => {
       created: todaysDate
     }, (err, entry) => {
       res.redirect('/profile');
+    });
+  });
+
+  app.get('/profile', isLoggedIn, function(req, res) {
+    Entry.find({userid:req.user._id, created: todaysDate},function(err, entries){
+      res.render('profile.ejs', {
+        //mainDate: dateFormat(now, "dddd, mmmm dS, yyyy"),
+        todaysDate: todaysDate,
+        requestedDate: todaysDate,
+        user : req.user,
+        entries: entries
+      });
     });
   });
 }

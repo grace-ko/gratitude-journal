@@ -5,6 +5,8 @@
   </head>
   <body>
     <p>Welcome!</p>
+    <%= todaysDate%>
+
     <p>Log what you're grateful for today!</p>
     <form action="/profile" method="post" class="entryForm">
       <div class="form-group">
@@ -15,6 +17,13 @@
         </div>
       </div>
     </form>
+    <div class="search-result">
+      <ul>
+        <% entries.forEach(entries => { %>
+          <li><%= entries.content + " " %></li>
+        <% }); %>
+      </ul>
+    </div>
     <a href="/logout">logout</a>
   </body>
 </html>
