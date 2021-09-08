@@ -17,13 +17,12 @@
         </div>
       </div>
     </form>
-    <div class="search-result">
-      <ul>
+      <div>
         <% entries.forEach(entries => { %>
-          <li><%= entries.content + " " %></li>
+          <input type="checkbox" id="<%=entries._id%>">
+          <label for="<%=entries._id%>"><%= entries.content + " " %></label><br>
         <% }); %>
-      </ul>
-    </div>
+      </div>
     <a href="/logout">logout</a>
   </body>
 </html>

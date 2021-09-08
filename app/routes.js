@@ -17,13 +17,6 @@ module.exports = (app, passport) => {
   app.get('/login', (req, res) => {
     res.render('login.ejs', { message: req.flash('loginMessage') });
   });
-  /*
-  app.get('/profile', isLoggedIn, (req, res) => {
-    res.render('profile.ejs', {
-      user: req.user,
-      todaysDate: todaysDate
-    });
-  });*/
 
   //auth
   app.post('/signup', passport.authenticate('local-signup', {
@@ -61,6 +54,11 @@ module.exports = (app, passport) => {
         entries: entries
       });
     });
+  });
+  app.delete('/entry/:id', isLoggedIn, (req,res) => {
+    Entry.findOneAndRemove({_id:req.params.id}, function(err,data){
+        res.send({});
+      });
   });
 }
 
