@@ -55,14 +55,13 @@ module.exports = (app, passport) => {
       });
     });
   });
+
   app.delete('/entry/:id', isLoggedIn, (req,res) => {
     Entry.findOneAndRemove({_id:req.params.id}, function(err,data){
         res.send({});
       });
   });
 }
-
-
 
 const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated())
