@@ -3,8 +3,8 @@ const year = new Date().getFullYear();
 const month = new Date().getMonth();
 const date = new Date().getDate();
 
-const todaysDate = `${year}-${month}-${date}`;
-console.log(todaysDate);
+const todaysDate = `${year}-${month + 1}-${date}`;
+
 //const test = require('../public/js/calendar');
 
 module.exports = (app, passport) => {

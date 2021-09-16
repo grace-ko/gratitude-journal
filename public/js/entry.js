@@ -3,7 +3,7 @@ jQuery(document).ready(function(){
 		e.preventDefault();
     const checkedEntry = $("input[type='checkbox']:checked");
 		const entryItem = $(checkedEntry).parent();
-		console.log($('.individual-entry'))
+
 		for (var i = 0; i < entryItem.length; i++) {
 			$(entryItem[i]).remove();
 			$.ajax({
