@@ -5,7 +5,8 @@
   </head>
   <body>
     <p>Welcome!</p>
-    <%= todaysDate%>
+    <a href="/logout"><p>logout</p></a>
+    <%= dateDisplay%>
 
     <p>Log what you're grateful for today!</p>
     <form action="/profile" method="post" class="entryForm">
@@ -13,7 +14,7 @@
         <div>
           <span>I am grateful for</span>
           <input type="text" class="entryField" name="entry" placeholder="e.g. not being stuck in traffic despite the storm"/>
-          <button type="submit" class="submit-entry">SUBMIT</button>
+          <button type="submit" class="submits-entry">SUBMIT</button>
         </div>
       </div>
     </form>
@@ -25,11 +26,13 @@
        </div>
       <% }); %>
       <% if (entries.length > 0) {%>
-        <button type="submit" class="delete-button">DELETE</button>
+        <button type="submit" class="delete-button">Delete Selected</button>
       <% } %>
     </div>
-
-    <a href="/logout"><p>logout</p></a>
+    <div class="search-entries">
+      <input type="search" class="search-date">
+      <button type="submit">Search Posts</button>
+    </div>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="./js/entry.js"></script>

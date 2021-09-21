@@ -16,4 +16,8 @@ jQuery(document).ready(function(){
 			});
 		}
 	});
+	$('.search-entries').click(function() {
+	const date=	$('.search-date')
+	console.log(date.val());
+	});
 });

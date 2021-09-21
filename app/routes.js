@@ -1,9 +1,10 @@
 const Entry = require('./models/entry');
-const year = new Date().getFullYear();
-const month = new Date().getMonth();
-const date = new Date().getDate();
 
-const todaysDate = `${year}-${month + 1}-${date}`;
+const dateFormat = require('dateformat');
+const now = new Date();
+
+const dateDisplay = dateFormat(now, "dddd, mmmm dS, yyyy");
+const dateFormatted = dateFormat(now, "m-d-yyyy")
 
 //const test = require('../public/js/calendar');
 
@@ -38,18 +39,18 @@ module.exports = (app, passport) => {
     Entry.create({
       content: req.body.entry,
       userid: req.user._id,
-      created: todaysDate
+      created: dateFormatted
     }, (err, entry) => {
       res.redirect('/profile');
     });
   });
 
   app.get('/profile', isLoggedIn, function(req, res) {
-    Entry.find({userid:req.user._id, created: todaysDate},function(err, entries){
+    Entry.find({userid:req.user._id, created: dateFormatted},function(err, entries){
       res.render('profile.ejs', {
-        //mainDate: dateFormat(now, "dddd, mmmm dS, yyyy"),
-        todaysDate: todaysDate,
-        requestedDate: todaysDate,
+        dateDisplay: dateDisplay,
+        //todaysDate: dateFormatted,
+        requestedDate: dateFormatted,
         user : req.user,
         entries: entries
       });
@@ -59,6 +60,18 @@ module.exports = (app, passport) => {
   app.delete('/entry/:id', isLoggedIn, (req,res) => {
     Entry.findOneAndRemove({_id:req.params.id}, function(err,data){
         res.send({});
+      });
+  });
+
+  app.post('/search-entry', isLoggedIn, function(req,res){
+      Entry.find({userid:req.user._id, created: req.body.date}, function(err,entries){
+          res.render('profile.ejs', {
+            //  todaysDate: todaysDate,
+              requestedDate: req.body.date,
+              user : req.user,
+              entries: entries,
+              mainDate: dateFormat(now, "dddd, mmmm dS, yyyy")
+          });
       });
   });
 }
